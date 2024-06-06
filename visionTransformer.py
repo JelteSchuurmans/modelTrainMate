@@ -4,7 +4,9 @@ from torchvision.models import vit_b_16, ViT_B_16_Weights
 from PIL import Image
 import requests
 import os
-print(os.listdir("."))
+
+print("Current working directory:", os.getcwd())
+print("Files in current directory:", os.listdir("."))
 
 
 # Check for GPU
