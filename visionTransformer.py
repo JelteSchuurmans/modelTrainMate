@@ -4,6 +4,8 @@ from torchvision.models import vit_b_16, ViT_B_16_Weights
 from PIL import Image
 import requests
 import os
+print(os.listdir("."))
+
 
 # Check for GPU
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
