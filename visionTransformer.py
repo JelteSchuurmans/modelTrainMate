@@ -87,7 +87,7 @@ def write_results_to_file(results, file_path):
     except Exception as e:
         print(f"Error writing results to file: {e}")
 
-# Main function
+# Main function 
 def main():
     folder_path = "input_data"  # Path to the folder containing the image
     output_file_path = "output_data/results.txt"  # Path to the output file
