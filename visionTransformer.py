@@ -5,9 +5,6 @@ from PIL import Image
 import requests
 import os
 
-print("Current working directory:", os.getcwd())
-print("Files in current directory:", os.listdir("."))
-
 
 # Check for GPU
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -23,21 +20,23 @@ print("Model loaded successfully")
 # Image preprocessing
 preprocess = weights.transforms()
 
-# Load an image
-def load_image(image_path):
+# Load an image from URL
+def load_image_from_url(image_url):
     try:
-        image = Image.open(image_path).convert("RGB")
+        response = requests.get(image_url, stream=True)
+        response.raise_for_status()
+        image = Image.open(response.raw).convert("RGB")
         image = preprocess(image)
         image = image.unsqueeze(0)  # Add batch dimension
-        print("Image loaded and preprocessed successfully")
+        print("Image downloaded and preprocessed successfully")
         return image
     except Exception as e:
-        print(f"Error loading image: {e}")
+        print(f"Error downloading or processing image: {e}")
         return None
 
 # Predict the class of an image
-def predict(image_path):
-    image = load_image(image_path)
+def predict(image_url):
+    image = load_image_from_url(image_url)
     if image is None:
         return None
     image = image.to(device)
@@ -74,13 +73,13 @@ def download_and_load_labels():
 
 # Main function
 def main():
-    image_path = r"WhatsApp Image 2024-06-05 at 14.40.15_cc2e16bc.jpg"
+    image_url = r"https://images.unsplash.com/photo-1533450718592-29d45635f0a9?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8anBnfGVufDB8fDB8fHww"
     labels = download_and_load_labels()
     if not labels:
         print("Failed to load labels. Exiting.")
         exit()
 
-    probabilities = predict(image_path)
+    probabilities = predict(image_url)
     if probabilities is None:
         print("Failed to predict. Exiting.")
         exit()
