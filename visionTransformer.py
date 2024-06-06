@@ -70,7 +70,7 @@ def download_and_load_labels():
 
 # Main function
 def main():
-    image_path = "WhatsApp Image 2024-06-05 at 14.40.15_cc2e16bc.jpg"  # Replace with your image path
+    image_path = r"WhatsApp Image 2024-06-05 at 14.40.15_cc2e16bc.jpg"
     labels = download_and_load_labels()
     if not labels:
         print("Failed to load labels. Exiting.")
