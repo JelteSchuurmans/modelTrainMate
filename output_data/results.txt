@@ -1,0 +1,5 @@
+ox: 0.8817
+oxcart: 0.0127
+lakeside: 0.0012
+sorrel: 0.0007
+rapeseed: 0.0006
