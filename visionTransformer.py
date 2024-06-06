@@ -83,7 +83,10 @@ def main():
 
     top5_prob, top5_catid = torch.topk(probabilities, 5)
     
-    for i in range(top5_prob.size(0)):
-        print(labels[top5_catid[i]], top5_prob[i].item())
+    with open("outputProbabilities.txt", "w") as f:
+        for i in range(top5_prob.size(0)):
+            f.write(f"{labels[top5_catid[i]]}: {top5_prob[i].item()}\n")
+    
+    print("Output probabilities saved to outputProbabilities.txt")
 
 main()
